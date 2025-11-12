@@ -41,3 +41,22 @@ print("\nRuta Dijkstra\n", ruta_dijkstra)
 
 ruta_a_estrella = g.a_estrella("c", "z", h)
 print("\nRuta A*\n", ruta_a_estrella)
+
+# Para MST
+
+g_mst = Grafo(dirigido=False, ponderado=True)
+g_mst.agregar_arista("A", "C", 7)
+g_mst.agregar_arista("A", "E", 4)
+g_mst.agregar_arista("A", "F", 7)
+
+g_mst.agregar_arista("B", "C", 8)
+g_mst.agregar_arista("B", "E", 7)
+g_mst.agregar_arista("B", "F", 5)
+g_mst.agregar_arista("B", "D", 3)
+
+g_mst.agregar_arista("C", "E", 6)
+
+g_mst.agregar_arista("D", "F", 4)
+
+mst, total = g_mst.mst_prim("B")
+print("\nMST Prim\n", "Árbol: ", graficar_nx(mst), "Peso Total: ", total)

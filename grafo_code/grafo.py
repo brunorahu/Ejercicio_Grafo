@@ -204,3 +204,36 @@ class Grafo:
             ruta.append(actual)
             actual = prev[actual]
         return ruta[::-1], g[destino]
+    
+    def mst_prim(self, origen=None):
+        vertices = self.vertices()
+        if origen is None:
+            origen = vertices[0]
+        T = Grafo(
+            dirigido = self.es_dirigido(),
+            ponderado = self.es_ponderado()
+        )
+        T.agregar_vertice(origen)
+        V = {
+            v for v in vertices
+        }
+        V.remove(origen)
+        
+        # Construcción MST
+        n = len(vertices)
+        total = 0
+        for i in range(n-1):
+            aristas = []
+            for u in T.vertices():
+                for v in self.vecinos(u):
+                    if v in V:
+                        peso = self.obtener_peso(u, v)
+                        aristas.append((peso, (u, v)))
+                        
+            aristas = sorted(aristas)
+            menor_peso, (u, v) = aristas[0]
+            total += menor_peso
+            V.remove(v)
+            T.agregar_arista(u,v, menor_peso)
+        
+        return T, total
